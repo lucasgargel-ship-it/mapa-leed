@@ -134,16 +134,41 @@ h1{font:700 30px/1.02 var(--display);margin:0;text-wrap:balance;letter-spacing:.
 .leaflet-popup-tip{background:var(--panel)}
 .leaflet-container a.leaflet-popup-close-button{top:8px;right:8px;width:26px;height:26px;font:500 22px/24px var(--body);color:var(--muted)}
 .leaflet-container a.leaflet-popup-close-button:hover{color:var(--ink)}
-.basebox{position:absolute;top:12px;right:12px;z-index:650;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px;display:flex;flex-direction:column;gap:6px;font-size:12.5px}
-.basebox .seg{display:flex;gap:4px}
-.basebox .seg button{font:600 12.5px/1 var(--body);padding:7px 10px;border-radius:7px;border:1px solid var(--line);background:var(--chip);color:var(--ink);cursor:pointer}
-.basebox .seg button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-.basebox label{display:flex;align-items:center;gap:6px;color:var(--muted);cursor:pointer;padding:0 2px}
-.maptop{right:150px}
+/* top bar: region shortcuts (left) + layers button (right) */
+.maptop{top:10px;left:10px;right:62px;flex-wrap:nowrap;overflow-x:auto;padding:2px;pointer-events:auto;scrollbar-width:none;gap:6px}
+.maptop::-webkit-scrollbar{display:none}
+.regbtn{flex:none;font-size:12px;padding:6px 10px;box-shadow:0 1px 4px rgba(0,0,0,.18)}
+.lyrbtn{position:absolute;top:10px;right:10px;z-index:660;width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);display:grid;place-items:center;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.18)}
+.lyrbtn[aria-expanded=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.lyrbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.layers{position:absolute;top:58px;right:10px;z-index:660;width:250px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:12px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.layers[hidden]{display:none}
+.layers h3{font:600 11px/1 var(--display);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.basepick{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.basepick button{display:flex;flex-direction:column;align-items:center;gap:5px;padding:6px;border-radius:9px;border:2px solid var(--line);background:var(--chip);color:var(--ink);font:600 12.5px/1 var(--body);cursor:pointer}
+.basepick button[aria-pressed=true]{border-color:var(--accent);color:var(--accent)}
+.basepick .thumb{width:100%;height:42px;border-radius:6px}
+.thumb.sat{background:radial-gradient(circle at 30% 40%,#6f7f4e 0 18%,transparent 19%),radial-gradient(circle at 70% 65%,#8a8270 0 22%,transparent 23%),linear-gradient(135deg,#3e5233,#5b6b45 45%,#7b7663)}
+.thumb.map{background:linear-gradient(90deg,transparent 46%,#f2c46b 46% 54%,transparent 54%),linear-gradient(0deg,transparent 40%,#ffffff 40% 47%,transparent 47%),linear-gradient(135deg,#ece6d8,#dfe8d6)}
+.sw-row{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13.5px;padding:5px 0;cursor:pointer}
+.sw-row.off{opacity:.45;cursor:default}
+.sw-row small{display:block;font-size:11.5px;color:var(--muted)}
+.tgl{appearance:none;-webkit-appearance:none;flex:none;width:36px;height:21px;border-radius:999px;background:var(--line);position:relative;cursor:pointer;transition:background .15s;margin:0}
+.tgl::after{content:"";position:absolute;top:2.5px;left:2.5px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .15s;box-shadow:0 1px 2px rgba(0,0,0,.3)}
+.tgl:checked{background:var(--accent)}
+.tgl:checked::after{transform:translateX(15px)}
+.tgl:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* legend: collapsible */
+.legend{padding:0;gap:0}
+.legend summary{list-style:none;cursor:pointer;padding:7px 10px;font:600 11px/1 var(--display);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:6px}
+.legend summary::-webkit-details-marker{display:none}
+.legend summary .dots{display:flex;gap:3px}
+.legend summary .dots i{width:8px;height:8px;border-radius:50%;display:block}
+.legend[open] summary .dots{display:none}
+.legend .rows{display:flex;flex-direction:column;gap:4px;padding:0 10px 8px}
 .leaflet-control-attribution{font-size:10.5px}
-@media (max-width:820px){.maptop{left:0;right:0;top:100px;flex-wrap:nowrap;overflow-x:auto;padding:0 12px 4px;pointer-events:auto;scrollbar-width:none}.maptop::-webkit-scrollbar{display:none}.regbtn{flex:none}.basebox{top:12px;right:12px}}
 .pb a.btn{color:var(--ink)}
-@media (max-width:820px){.pb{max-height:calc(62svh - 70px)}.mapwrap.popopen .legend,.mapwrap.popopen .maptop,.mapwrap.popopen .basebox,.mapwrap.popopen .leaflet-control-container{display:none}}.pb a.btn.primary{color:var(--accent-ink)}
+@media (max-width:820px){.pb{max-height:calc(62svh - 70px)}.mapwrap.popopen .legend,.mapwrap.popopen .maptop,.mapwrap.popopen .layers,.mapwrap.popopen .lyrbtn,.mapwrap.popopen .leaflet-control-container{display:none}}.pb a.btn.primary{color:var(--accent-ink)}
 
 </style>
 </head>
@@ -152,17 +177,30 @@ h1{font:700 30px/1.02 var(--display);margin:0;text-wrap:balance;letter-spacing:.
   <div class="mapwrap">
     <div id="map" aria-label="Mapa dos empreendimentos certificados LEED"></div>
     <div class="maptop" id="regions"></div>
-    <div class="basebox">
-      <div class="seg" role="group" aria-label="Mapa de fundo"><button type="button" data-base="sat" aria-pressed="true">Satélite</button><button type="button" data-base="map" aria-pressed="false">Ruas</button></div>
-      <label><input type="checkbox" id="munbox" checked> Limites municipais</label>
+    <button class="lyrbtn" id="lyrbtn" type="button" aria-label="Camadas do mapa" aria-expanded="false" aria-controls="layers" title="Camadas do mapa"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="m2 13 10 5 10-5"/><path d="m2 17.5 10 5 10-5" opacity=".5"/></svg></button>
+    <div class="layers" id="layers" hidden>
+      <div><h3>Tipo de mapa</h3>
+        <div class="basepick" role="group" aria-label="Tipo de mapa">
+          <button type="button" data-base="sat" aria-pressed="true"><span class="thumb sat"></span>Satélite</button>
+          <button type="button" data-base="map" aria-pressed="false"><span class="thumb map"></span>Mapa</button>
+        </div></div>
+      <div><h3>Mostrar no mapa</h3>
+        <label class="sw-row" id="row-roads"><span>Ruas e rodovias<small>Traçado e nomes sobre o satélite</small></span><input class="tgl" type="checkbox" id="t-roads" checked></label>
+        <label class="sw-row" id="row-places"><span>Nomes de lugares<small>Cidades e bairros</small></span><input class="tgl" type="checkbox" id="t-places" checked></label>
+        <label class="sw-row"><span>Divisas de estados</span><input class="tgl" type="checkbox" id="t-uf" checked></label>
+        <label class="sw-row"><span>Limites de municípios<small>Aparecem ao aproximar</small></span><input class="tgl" type="checkbox" id="t-mun" checked></label>
+      </div>
     </div>
-    <div class="legend" aria-label="Legenda">
+    <details class="legend" id="legend" aria-label="Legenda">
+      <summary>Legenda <span class="dots"><i style="background:var(--platinum)"></i><i style="background:var(--gold)"></i><i style="background:var(--silver)"></i><i style="background:var(--certified)"></i></span></summary>
+      <div class="rows">
       <div class="row"><span class="sw" style="background:var(--platinum)"></span>Platinum</div>
       <div class="row"><span class="sw" style="background:var(--gold)"></span>Gold</div>
       <div class="row"><span class="sw" style="background:var(--silver)"></span>Silver</div>
       <div class="row"><span class="sw" style="background:var(--certified)"></span>Certified</div>
       <div class="row"><span class="sw cte"></span>Portfólio CTE</div>
-    </div>
+      </div>
+    </details>
   </div>
   <aside>
     <div class="head">
@@ -236,38 +274,54 @@ const dark=matchMedia('(prefers-color-scheme: dark)').matches;
 const map=L.map('map',{preferCanvas:true,zoomControl:false,minZoom:3,maxZoom:20,worldCopyJump:true}).setView([-16,-50],4);
 L.control.zoom({position:'bottomright',zoomInTitle:'Aproximar',zoomOutTitle:'Afastar'}).addTo(map);
 L.control.scale({position:'bottomright',imperial:false}).addTo(map);
+const ESRI='https://server.arcgisonline.com/ArcGIS/rest/services/';
+const tl=(svc,o)=>L.tileLayer(ESRI+svc+'/MapServer/tile/{z}/{y}/{x}',Object.assign({maxZoom:20,maxNativeZoom:19},o||{}));
 const BASE={
-  map:L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:20,maxNativeZoom:19,attribution:'Mapa &copy; Esri, HERE, Garmin, OpenStreetMap'}),
-  sat:L.layerGroup([
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:20,maxNativeZoom:19,attribution:'Imagens &copy; Esri, Maxar, Earthstar Geographics'}),
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}',{maxZoom:20,maxNativeZoom:19}),
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{maxZoom:20,maxNativeZoom:19})])
+  sat:tl('World_Imagery',{attribution:'Imagens &copy; Esri, Maxar, Earthstar Geographics'}),
+  map:tl('World_Street_Map',{attribution:'Mapa &copy; Esri, HERE, Garmin, OpenStreetMap'})
 };
-let base='sat'; BASE.sat.addTo(map);
-function setBase(b){
-  if(b===base) return; map.removeLayer(BASE[base]); BASE[b].addTo(map); base=b;
-  document.querySelectorAll('.basebox [data-base]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.base===b));
-  ufLayer.setStyle(ufStyle()); munLayer.setStyle(munStyle()); ufLayer.bringToBack(); munLayer.bringToBack();
-}
-document.querySelectorAll('.basebox [data-base]').forEach(b=>b.addEventListener('click',()=>setBase(b.dataset.base)));
+const ROADS=tl('Reference/World_Transportation'), PLACES=tl('Reference/World_Boundaries_and_Places');
+let base='sat';
 const ufStyle=()=>({color:base==='sat'?'#ffffff':'#4a5a54',weight:1.4,opacity:base==='sat'?.8:.9,fill:false,interactive:false});
 const munStyle=()=>({color:base==='sat'?'#ffffff':'#7f8f88',weight:.7,opacity:base==='sat'?.55:.7,fill:false,interactive:false});
-const ufLayer=L.geoJSON(JSON.parse(document.getElementById('ufs').textContent),{style:ufStyle,interactive:false}).addTo(map);
+const ufLayer=L.geoJSON(JSON.parse(document.getElementById('ufs').textContent),{style:ufStyle,interactive:false});
 const munLayer=L.geoJSON(JSON.parse(document.getElementById('mun').textContent),{style:munStyle,interactive:false});
-const munBox=document.getElementById('munbox');
-function munToggle(){const want=munBox.checked&&map.getZoom()>=8;if(want&&!map.hasLayer(munLayer)){munLayer.addTo(map);munLayer.bringToBack();}else if(!want&&map.hasLayer(munLayer))map.removeLayer(munLayer);}
-munBox.addEventListener('change',munToggle); map.on('zoomend',munToggle);
+const $=id=>document.getElementById(id);
+function show(layer,want){if(want&&!map.hasLayer(layer))layer.addTo(map);else if(!want&&map.hasLayer(layer))map.removeLayer(layer);}
+function applyLayers(){
+  show(BASE.sat,base==='sat'); show(BASE.map,base==='map');
+  // the street map already carries its own road and place names
+  show(ROADS,base==='sat'&&$('t-roads').checked); show(PLACES,base==='sat'&&$('t-places').checked);
+  ['row-roads','row-places'].forEach(id=>{$(id).classList.toggle('off',base!=='sat');$(id).querySelector('input').disabled=base!=='sat';});
+  ufLayer.setStyle(ufStyle()); munLayer.setStyle(munStyle());
+  show(ufLayer,$('t-uf').checked); show(munLayer,$('t-mun').checked&&map.getZoom()>=8);
+  BASE[base].bringToBack();
+  document.querySelectorAll('.basepick [data-base]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.base===base));
+}
+function setBase(b){base=b;applyLayers();}
+document.querySelectorAll('.basepick [data-base]').forEach(b=>b.addEventListener('click',()=>setBase(b.dataset.base)));
+['t-roads','t-places','t-uf','t-mun'].forEach(id=>$(id).addEventListener('change',applyLayers));
+map.on('zoomend',applyLayers);
+applyLayers();
+const lyrBtn=$('lyrbtn'), lyrBox=$('layers');
+function lyrOpen(v){lyrBox.hidden=!v;lyrBtn.setAttribute('aria-expanded',v);}
+lyrBtn.addEventListener('click',e=>{e.stopPropagation();lyrOpen(lyrBox.hidden);});
+document.addEventListener('click',e=>{if(!lyrBox.hidden&&!lyrBox.contains(e.target)&&e.target!==lyrBtn)lyrOpen(false);});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!lyrBox.hidden){lyrOpen(false);lyrBtn.focus();}});
+if(window.innerWidth>820) $('legend').open=true;
 // pins: low levels first so Platinum stays on top
 const order={Certified:1,Silver:2,Gold:3,Platinum:4};
-const R=p=>p.projects.length>3?9:7.5;
+const zf=()=>{const z=map.getZoom();return z<=5?.72:z<=8?.88:1;};
+const R=p=>(p.projects.length>3?9:7.5)*zf();
 const halos={}, marks={};
 PINS.slice().sort((a,b)=>order[a.best]-order[b.best]).forEach(p=>{
-  if(p.cte) halos[p.i]=L.circleMarker([p.lat,p.lng],{radius:R(p)+4.5,color:css('--cte'),weight:3,fill:false,interactive:false}).addTo(map);
+  if(p.cte) halos[p.i]=L.circleMarker([p.lat,p.lng],{radius:R(p)+4.5,color:css('--cte'),weight:2.5,fill:false,interactive:false}).addTo(map);
   marks[p.i]=L.circleMarker([p.lat,p.lng],{radius:R(p),fillColor:hex(p.best),fillOpacity:1,color:'#ffffff',weight:1.6}).addTo(map)
     .bindTooltip(`${esc(p.title)} · ${esc(p.city)}/${esc(p.state)}`,{direction:'top',offset:[0,-8]})
     .on('click',()=>select(p.i,false));
 });
 let VSET=new Set(PINS.map(p=>p.i));
+map.on('zoomend',()=>styleAll());
 function styleAll(vset){
   if(vset) VSET=vset;
   PINS.forEach(p=>{const v=VSET.has(p.i),s=state.sel===p.i;
@@ -277,7 +331,7 @@ function styleAll(vset){
 }
 const REG=[['Brasil',-15,-52,4],['Grande SP',-23.55,-46.65,10],['Campinas–Jundiaí',-23.05,-46.98,10],['Rio',-22.85,-43.35,10],['Sul de Minas',-22.6,-46.3,9],['Brasília',-15.8,-47.9,11],['BH',-19.93,-43.97,11],['Sul',-27.5,-50.5,6],['Nordeste',-9.5,-38.5,6]];
 REG.forEach(d=>{const b=document.createElement('button');b.className='regbtn';b.type='button';b.textContent=d[0];b.onclick=()=>map.flyTo([d[1],d[2]],d[3],{duration:.8});document.getElementById('regions').appendChild(b);});
-L.DomEvent.disableClickPropagation(document.querySelector('.basebox'));L.DomEvent.disableClickPropagation(document.getElementById('regions'));
+[lyrBtn,lyrBox,$('legend')].forEach(el=>{L.DomEvent.disableClickPropagation(el);L.DomEvent.disableScrollPropagation(el);});L.DomEvent.disableClickPropagation(document.getElementById('regions'));
 // ---------- filters & list ----------
 function chips(el,vals,set,label,swatch){
   const box=document.querySelector(el);
